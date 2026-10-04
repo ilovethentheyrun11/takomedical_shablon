@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дымоудаление ERBE — Tako Medical</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== ФИРМЕННЫЕ ЦВЕТА ===== */
+        :root {
+            --brand-blue: #4AA3C2;
+            --brand-blue-hover: #3B8AA6;
+            --brand-dark: #1A2B3C;
+            --text-main: #333333;
+            --text-muted: #6B7280;
+            --bg-light: #F4F8FA;
+            --white: #FFFFFF;
+            --border-color: #E2E8F0;
+            --transition: all 0.3s ease;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { color: var(--text-main); background-color: var(--white); line-height: 1.6; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== ШАПКА ===== */
+        header { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid var(--border-color); }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo img { height: 40px; display: block; }
+        .nav-menu { display: flex; gap: 32px; height: 100%; align-items: center; }
+        .nav-item { position: relative; height: 100%; display: flex; align-items: center; }
+        .nav-link { font-size: 14px; font-weight: 600; text-transform: uppercase; color: var(--brand-dark); letter-spacing: 0.5px; position: relative; padding: 8px 0; cursor: pointer; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--brand-blue); transition: var(--transition); }
+        .nav-item:hover .nav-link { color: var(--brand-blue); }
+        .nav-item:hover .nav-link::after { width: 100%; }
+        .dropdown { position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--white); min-width: 240px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border-radius: 8px; padding: 12px 0; opacity: 0; visibility: hidden; transition: var(--transition); border: 1px solid var(--border-color); border-top: 3px solid var(--brand-blue); }
+        .nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+        .dropdown li a { display: block; padding: 10px 24px; font-size: 14px; color: var(--text-main); }
+        .dropdown li a:hover { background-color: var(--bg-light); color: var(--brand-blue); padding-left: 28px; }
+        .nav-contacts { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; font-size: 13px; font-weight: 600; color: var(--brand-dark); }
+        .nav-contacts span { display: flex; align-items: center; gap: 6px; }
+        .nav-contacts span::before { content: '•'; color: var(--brand-blue); font-size: 18px; }
+
+        /* ===== HERO ===== */
+        .page-hero { padding: 160px 0 60px; background: linear-gradient(135deg, var(--bg-light) 0%, #E8F0F5 100%); position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; top: -50%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(74,163,194,0.08) 0%, transparent 70%); border-radius: 50%; }
+        .page-hero .container { position: relative; z-index: 1; }
+        .breadcrumbs { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+        .breadcrumbs a:hover { color: var(--brand-blue); }
+        .breadcrumbs span { margin: 0 8px; color: var(--border-color); }
+        .page-hero h1 { font-size: 38px; font-weight: 800; color: var(--brand-dark); margin-bottom: 20px; letter-spacing: -0.5px; max-width: 900px; }
+        .page-hero p { font-size: 17px; color: var(--text-muted); max-width: 800px; line-height: 1.7; margin-bottom: 16px; }
+
+        /* ===== ОСНОВНАЯ СЕКЦИЯ ===== */
+        .section-catalog { padding: 80px 0; background: var(--white); }
+        .catalog-layout { display: grid; grid-template-columns: 280px 1fr; gap: 60px; align-items: start; }
+
+        .sidebar { position: sticky; top: 100px; background: var(--bg-light); border-radius: 20px; padding: 32px 24px; }
+        .sidebar h3 { font-size: 18px; font-weight: 700; color: var(--brand-dark); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
+        .sidebar-menu { display: flex; flex-direction: column; gap: 8px; }
+        .sidebar-menu li { border-radius: 8px; overflow: hidden; }
+        .sidebar-menu a { display: block; padding: 12px 16px; font-size: 15px; font-weight: 500; color: var(--text-main); border-radius: 8px; transition: var(--transition); }
+        .sidebar-menu a:hover { background: var(--white); color: var(--brand-blue); padding-left: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .sidebar-menu a.active { background: var(--brand-blue); color: var(--white); font-weight: 600; }
+
+        .content-area h2 { font-size: 28px; font-weight: 700; color: var(--brand-dark); margin-bottom: 24px; }
+        .content-area > p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 40px; }
+
+        /* ===== СЕТКА ТОВАРОВ ===== */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-bottom: 60px; }
+        .product-card-sm { background: var(--white); border: 1px solid var(--border-color); border-radius: 20px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
+        .product-card-sm:hover { box-shadow: 0 12px 30px rgba(74,163,194,0.1); border-color: var(--brand-blue); transform: translateY(-4px); }
+        
+        .product-image-sm { width: 100%; height: 200px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .product-image-sm img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .product-card-sm:hover .product-image-sm img { transform: scale(1.05); }
+        
+        .product-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-sku { font-size: 12px; font-weight: 700; color: var(--brand-blue); background: rgba(74,163,194,0.1); padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 12px; width: fit-content; }
+        .product-body h4 { font-size: 16px; font-weight: 700; color: var(--brand-dark); margin-bottom: 12px; line-height: 1.4; }
+        .product-body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        .btn-info { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; background: transparent; color: var(--brand-blue); font-size: 14px; font-weight: 600; border-radius: 50px; border: 1px solid var(--brand-blue); transition: var(--transition); cursor: pointer; width: 100%; margin-top: auto; }
+        .product-card-sm:hover .btn-info { background: var(--brand-blue); color: var(--white); }
+        .btn-info svg { width: 16px; height: 16px; transition: var(--transition); }
+        .product-card-sm:hover .btn-info svg { transform: translateX(4px); }
+
+        /* ===== БЛОКИ ПОМОЩИ И ДОВЕРИЯ ===== */
+        .help-banner { background: var(--brand-dark); border-radius: 24px; padding: 48px; display: flex; justify-content: space-between; align-items: center; color: var(--white); position: relative; overflow: hidden; margin-bottom: 60px; }
+        .help-banner::before { content: ''; position: absolute; top: -50px; right: -50px; width: 200px; height: 200px; background: rgba(74,163,194,0.2); border-radius: 50%; }
+        .help-text { position: relative; z-index: 1; max-width: 600px; }
+        .help-text h3 { font-size: 26px; font-weight: 700; margin-bottom: 12px; }
+        .help-text p { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 0; }
+        .help-phone { position: relative; z-index: 1; display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.1); padding: 16px 32px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); transition: var(--transition); }
+        .help-phone:hover { background: var(--brand-blue); border-color: var(--brand-blue); }
+        .help-phone svg { width: 24px; height: 24px; stroke: var(--white); }
+        .help-phone span { font-size: 20px; font-weight: 700; color: var(--white); letter-spacing: 0.5px; }
+
+        .trust-section { margin-bottom: 60px; }
+        .trust-section h3 { font-size: 24px; font-weight: 700; color: var(--brand-dark); margin-bottom: 32px; text-align: center; }
+        .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .trust-item { text-align: center; padding: 32px 20px; background: var(--white); border: 1px solid var(--border-color); border-radius: 20px; transition: var(--transition); }
+        .trust-item:hover { border-color: var(--brand-blue); box-shadow: 0 12px 30px rgba(74,163,194,0.08); transform: translateY(-5px); }
+        .trust-icon { width: 56px; height: 56px; background: var(--bg-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; transition: var(--transition); }
+        .trust-item:hover .trust-icon { background: var(--brand-blue); }
+        .trust-icon svg { width: 24px; height: 24px; stroke: var(--brand-blue); transition: var(--transition); }
+        .trust-item:hover .trust-icon svg { stroke: var(--white); }
+        .trust-item p { font-size: 15px; font-weight: 600; color: var(--brand-dark); line-height: 1.4; }
+
+        /* ===== БЛОК "КАК ПРОИСХОДИТ ЗАКАЗ" ===== */
+        .section-order { padding: 100px 0; background: var(--brand-dark); color: var(--white); position: relative; overflow: hidden; margin-top: 40px; }
+        .section-order::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%234AA3C2" stroke-width="0.5" opacity="0.1"/></svg>') center/cover no-repeat; opacity: 0.3; }
+        .section-order .container { position: relative; z-index: 1; }
+        .section-order .section-title { font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 60px; color: var(--white); letter-spacing: -0.5px; }
+        .order-steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 60px; flex-wrap: wrap; }
+        .step-item { display: flex; align-items: center; gap: 8px; padding: 14px 28px; background: rgba(255,255,255,0.05); border: 1px solid rgba(74,163,194,0.4); border-radius: 4px; cursor: pointer; transition: var(--transition); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%, 16px 50%); }
+        .step-item:first-child { clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 50%, calc(100% - 16px) 100%, 0 100%); }
+        .step-item:last-child { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 16px 50%); }
+        .step-item.active { background: var(--brand-blue); border-color: var(--brand-blue); color: var(--white); }
+        .step-item:hover:not(.active) { background: rgba(74,163,194,0.15); border-color: var(--brand-blue); }
+        .order-content { display: none; align-items: center; gap: 60px; max-width: 1000px; margin: 0 auto; }
+        .order-content.active { display: flex; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .order-illustration { flex-shrink: 0; width: 260px; height: 260px; background: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+        .order-illustration img { width: 80%; height: 80%; object-fit: contain; }
+        .order-text { flex: 1; }
+        .order-text h3 { font-size: 36px; font-weight: 800; color: var(--white); margin-bottom: 20px; letter-spacing: -0.5px; }
+        .order-text p { font-size: 16px; color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 30px; max-width: 500px; }
+        .order-nav { display: flex; gap: 12px; }
+        .order-nav button { width: 48px; height: 48px; border-radius: 50%; background: var(--brand-blue); border: none; color: var(--white); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); font-size: 18px; }
+        .order-nav button:hover { background: var(--brand-blue-hover); transform: scale(1.05); }
+        .order-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        /* ===== ПОДВАЛ ===== */
+        footer { background: var(--brand-dark); color: #A0AEC0; padding: 80px 0 40px; font-size: 14px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 60px; }
+        .footer-col h4 { color: var(--white); margin-bottom: 24px; font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a:hover { color: var(--brand-blue); padding-left: 4px; }
+        .footer-col.contact-info p { margin-bottom: 12px; line-height: 1.6; }
+        .footer-col.contact-info a { color: var(--white); font-weight: 600; }
+        .footer-col.contact-info a:hover { color: var(--brand-blue); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 32px; display: flex; justify-content: space-between; align-items: center; font-size: 13px; }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
+        @media (max-width: 1024px) {
+            .page-hero h1 { font-size: 30px; }
+            .catalog-layout { grid-template-columns: 1fr; gap: 40px; }
+            .sidebar { position: relative; top: 0; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+            .trust-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .help-banner { flex-direction: column; text-align: center; gap: 24px; }
+            .order-content { flex-direction: column; text-align: center; }
+            .order-text p { max-width: 100%; }
+            .order-nav { justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .nav-contacts { font-size: 11px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .page-hero h1 { font-size: 24px; }
+            .trust-grid { grid-template-columns: 1fr; }
+            .product-grid { grid-template-columns: 1fr; }
+            .order-steps { flex-direction: column; align-items: center; }
+            .step-item { clip-path: none; border-radius: 8px; width: 100%; justify-content: center; }
+            .step-item:first-child, .step-item:last-child { clip-path: none; }
+            .order-illustration { width: 200px; height: 200px; }
+            .order-text h3 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== ШАПКА ===== -->
+    <header>
+        <div class="container nav-container">
+            <a href="glavnaya.html" class="logo">
+                <img src="logo_tako.png" alt="Tako Medical">
+            </a>
+
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <a href="productia.html" class="nav-link" style="color: var(--brand-blue);">Продукция</a>
+                    <ul class="dropdown">
+                        <li><a href="electrosurgery.html">Электрохирургия</a></li>
+                        <li><a href="plazmasurgery.html">Плазменная хирургия</a></li>
+                        <li><a href="kryosurgery.html">Криохирургия</a></li>
+                        <li><a href="hidrosurgery.html">Гидрохирургия</a></li>
+                        <li><a href="dymoudaleniye.html">Дымоудаление</a></li>
+                        <li><a href="iggiration.html">Ирригация</a></li>
+                        <li><a href="aspiration.html">Аспирация</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="primenenie.html" class="nav-link">Применение</a>
+                    <ul class="dropdown">
+                        <li><a href="obschaya_surgery.html">Общая хирургия</a></li>
+                        <li><a href="gastroenterology.html">Гастроэнтерология</a></li>
+                        <li><a href="ginekology.html">Гинекология</a></li>
+                        <li><a href="urology.html">Урология</a></li>
+                        <li><a href="pulmonology.html">Пульмонология</a></li>
+                        <li><a href="otorinoringology.html">Оториноларингология</a></li>
+                        <li><a href="plastic_surgery.html">Пластическая хирургия</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="uslugi.html" class="nav-link">Услуги</a>
+                    <ul class="dropdown">
+                        <li><a href="obucheniye_doctorov.html">Обучение докторов</a></li>
+                        <li><a href="servisnoye_obslujivaniye.html">Сервисное обслуживание</a></li>
+                        <li><a href="aprobacia.html">Апробация оборудования</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="contacts.html" class="nav-link">Контакты</a>
+                </div>
+            </nav>
+
+            <div class="nav-contacts">
+                <span>+7 961 810-11-40</span>
+                <span>+7 921 184-11-11</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="breadcrumbs">
+                <a href="/">Главная</a> <span>/</span> <a href="/produkcziya/">Продукция</a> <span>/</span> Дымоудаление
+            </div>
+            <h1>Купить оборудование для дымоудаления ERBE в Санкт-Петербурге, СЗФО и ЦФО</h1>
+            <p>Дым, образующийся во время хирургических и эндоскопических операций, может снижать видимость и содержать вредные для персонала вещества. Системы дымоудаления ERBE эффективно удаляют аэрозоли и газы, поддерживая стерильность операционной среды и защищая врачей и пациентов.</p>
+        </div>
+    </section>
+
+    <!-- ===== ОСНОВНАЯ СЕКЦИЯ ===== -->
+    <section class="section-catalog">
+        <div class="container catalog-layout">
+
+            <!-- Сайдбар -->
+            <aside class="sidebar">
+                <h3>Каталог</h3>
+                <ul class="sidebar-menu">
+                    <li><a href="#">Электрохирургия</a></li>
+                    <li><a href="#">Плазменная хирургия</a></li>
+                    <li><a href="#">Криохирургия</a></li>
+                    <li><a href="#">Гидрохирургия</a></li>
+                    <li><a href="#" class="active">Дымоудаление</a></li>
+                    <li><a href="#">Ирригация</a></li>
+                    <li><a href="#">Аспирация</a></li>
+                </ul>
+            </aside>
+
+            <!-- Контентная часть -->
+            <div class="content-area">
+                <h2>Дымоудаление</h2>
+                <p>Оборудование и инструменты для процедуры дымоудаления. Важный аспект безопасности и гигиены в хирургии, связанный с удалением дыма и паров, образующихся в процессе электрохирургических и лазерных манипуляций.</p>
+
+                <!-- Сетка товаров -->
+                <div class="product-grid">
+                    
+                    <!-- Товар 1 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=IES+3" alt="ERBE IES 3">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">10323-000</span>
+                            <h4>Аппарат для отсоса дымовых газов при электрохирургии серии ERBE IES 3</h4>
+                            <p>Новый стандарт безопасности в операционной. Аппарат ERBE IES 3 — это высокопроизводительная система дымоудаления, созданная для комплексной защиты медицинского персонала и пациентов от токсичных продуктов горения тканей.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 2 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Filter" alt="Фильтровый патрон">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-000</span>
+                            <h4>Фильтровый патрон для IES 2 с соединением ø 22 мм</h4>
+                            <p>Фильтровый патрон является основным сменным фильтрующим элементом системы дымоудаления IES 2. Своевременная замена патрона обеспечивает эффективное удаление дыма.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 3 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Tube" alt="Дымоотводная трубка">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-004</span>
+                            <h4>Дымоотводная трубка, оптимизированный поток с соединением ø 22 мм</h4>
+                            <p>Дымоотводная трубка с оптимизированным потоком и стандартным соединением ø 22 мм предназначена для эффективного и безопасного отвода дымовых газов.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 4 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Holder" alt="Держатель электрода">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-007</span>
+                            <h4>Держатель электрода одноразовый, насадка с зажимом (упак. 25)</h4>
+                            <p>Для максимально точного захвата дыма у источника. Одноразовый держатель с коротким наконечником 12 мм обеспечивает гигиеничность и позволяет подвести систему отсоса вплотную к зоне электрода.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 5 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Hose" alt="Дымоотводной шланг">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-009</span>
+                            <h4>Дымоотводной шланг (диаметр 22 мм), длина 2,7 м</h4>
+                            <p>Дымоотводной шланг длиной 2,7 метра с диаметром 22 мм обеспечивает максимальное удобство при подключении систем отсоса в операционных.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 6 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Nozzle" alt="Вытяжная насадка">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-010</span>
+                            <h4>Вытяжная насадка, подключение ø 22 мм</h4>
+                            <p>Ключевой элемент для точного захвата дыма. Насадка с подключением 22 мм обеспечивает надежное соединение с системами отсоса дымовых газов ERBE IES.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 7 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Hose+2.1" alt="Дымоотводной шланг 2.1">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-012</span>
+                            <h4>Дымоотводной шланг (диаметр 22 мм), длина 2,1 м</h4>
+                            <p>Дымоотводной шланг диаметром 22 мм и длиной 2,1 метра предназначен для эффективного удаления дымовых газов при электрохирургических операциях.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 8 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Holder+100mm" alt="Держатель электрода 100мм">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-020</span>
+                            <h4>Держатель электрода одноразовый, насадка с зажимом для IES с наконечником длиной 100 мм (упак 25 шт)</h4>
+                            <p>Для процедур, требующих увеличенного доступа. Одноразовый держатель с удлиненным наконечником (100 мм) позволяет безопасно и гигиенично фиксировать электрод.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 9 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Prefilter" alt="Предварительный фильтр">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-022</span>
+                            <h4>Предварительный фильтр для IES 2 (упак.15 шт.) с соединением ø 22 мм</h4>
+                            <p>Предварительный фильтр для системы IES 2 — это первый барьер защиты, улавливающий крупные частицы хирургического дыма. Регулярная замена префильтра экономит ресурс основного фильтра.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 10 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Holder+Buttons" alt="Держатель с кнопками">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-028</span>
+                            <h4>Держатель электрода одноразовый, хирургический для IES 2 с 2-мя кнопками, c кабелем 3 м (упак 25 шт)</h4>
+                            <p>Профессиональный контроль в ваших руках. Хирургический держатель для системы IES 2 оснащен двумя кнопками для точного управления и кабелем длиной 3 метра.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 11 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Pencil+3m" alt="Карандаш 3м">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-040</span>
+                            <h4>Карандаш для дымоудаления, одноразовый, короткий, с электродом-шпателем, кабель 3 м</h4>
+                            <p>Базовая модель одноразового карандаша для дымоудаления с оптимальной длиной кабеля 3 метра и классическим электродом-шпателем.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 12 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Pencil+5m" alt="Карандаш 5м">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-042</span>
+                            <h4>Карандаш для дымоудаления одноразовый, короткий, с электродом-шпателем, кабель 5 м</h4>
+                            <p>Одноразовый карандаш для дымоудаления с классическим электродом-шпателем и длинным кабелем 5 метров. Обеспечивает базовую функциональность и гигиену.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 13 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Holder+IES3" alt="Держатель для IES 3">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20321-044</span>
+                            <h4>Держатель электрода одноразовый, насадка с зажимом для крепления для IES 3 (упак.20 шт.)</h4>
+                            <p>Удобный и надежный аксессуар для вашей системы IES 3. Держатели оснащены удобным зажимом для быстрой фиксации электрода.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 14 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Connector" alt="Элемент дымоулавливания">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20322-010</span>
+                            <h4>Элемент системы дымоулавливания с коннектором ø 22 мм для IES 2</h4>
+                            <p>Одноразовый элемент системы дымоулавливания предназначен для гигиеничного и безопасного подключения к аппарату IES 2.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 15 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Foot+Switch" alt="Педаль">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20322-101</span>
+                            <h4>Педаль - ножной переключатель однопедальный для IES 2</h4>
+                            <p>Однопедальный ножной переключатель — это удобное и гигиеничное решение для активации системы дымоудаления IES 2 во время операции.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 16 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Cartridge" alt="Картридж IES 3">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-000</span>
+                            <h4>Картридж основного фильтра IES 3 с патрубком ø 22 мм</h4>
+                            <p>Сменный картридж основного фильтра для системы IES 3 предназначен для эффективного улавливания хирургического дыма и запахов.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 17 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Central+Evac" alt="Элемент эвакуации">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-001</span>
+                            <h4>Элемент эвакуации IES 3 для централизованной эвакуации</h4>
+                            <p>Элемент эвакуации IES 3 предназначен для подключения аппарата к централизованной системе дымоудаления, что позволяет использовать мощный стационарный отсос.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 18 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=LAP+Kit" alt="Комплект LAP">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-003</span>
+                            <h4>Комплект трубок LAP IES 3, с трубным клапаном, 3 м</h4>
+                            <p>Специализированный комплект LAP для системы IES 3 предназначен для эффективного удаления хирургического дыма при лапароскопических операциях.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 19 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Water+Separator" alt="Водоотделитель">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-004</span>
+                            <h4>Самоуплотняющийся водоотделитель, прямоугольный, среднего объема</h4>
+                            <p>Самоуплотняющийся водоотделитель прямоугольной формы среднего объема — ключевой элемент для защиты дорогостоящего основного фильтра системы дымоудаления.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 20 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Tee" alt="Тройник">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-005</span>
+                            <h4>Тройник, 22M - 22F - 22M для одновременного применения</h4>
+                            <p>Тройник с конфигурацией разъемов 22M-22F-22M предназначен для создания разветвлений в системах отсоса хирургического дыма.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 21 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=LAP+5m" alt="Комплект LAP 5м">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-006</span>
+                            <h4>Комплект трубок LAP IES 3, с трубным клапаном, 5 м</h4>
+                            <p>Удлиненная версия комплекта LAP для системы IES 3 предназначена для лапароскопических операций, где требуется максимальная свобода размещения оборудования.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 22 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Mount+Kit" alt="Комплект крепления">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-007</span>
+                            <h4>Комплект крепления IES 3 - VIO 3</h4>
+                            <p>Специализированный комплект крепления предназначен для безопасной и удобной интеграции системы дымоудаления IES 3 с электрохирургическим аппаратом VIO 3.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 23 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Mount+VIO+C" alt="Крепление VIO C">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-008</span>
+                            <h4>Комплект крепления VIO C на IES 3</h4>
+                            <p>Специализированный комплект крепления позволяет смонтировать электрохирургический аппарат VIO C непосредственно на систему дымоудаления IES 3.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Товар 24 -->
+                    <div class="product-card-sm">
+                        <div class="product-image-sm">
+                            <img src="https://via.placeholder.com/400x300/F4F8FA/4AA3C2?text=Tube+32mm" alt="Трубка 32мм">
+                        </div>
+                        <div class="product-body">
+                            <span class="product-sku">20323-009</span>
+                            <h4>Трубка дымоудаления ø 32 мм, длина 1,8 м, тип VT 10106</h4>
+                            <p>Трубка типа VT 10106 диаметром 32 мм и длиной 1,8 м предназначена для подключения переносных или стационарных систем дымоудаления к централизованной сети отсоса.</p>
+                            <a href="#" class="btn-info">Информация <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Блок помощи -->
+                <div class="help-banner">
+                    <div class="help-text">
+                        <h3>Требуется помощь с подбором?</h3>
+                        <p>Наши эксперты смогут помочь вам в выборе и рекомендовать максимально совместимое оборудование.</p>
+                    </div>
+                    <a href="tel:+79618101140" class="help-phone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        <span>+7 961 810-11-40</span>
+                    </a>
+                </div>
+
+                <!-- Почему нам доверяют -->
+                <div class="trust-section">
+                    <h3>Почему нам доверяют</h3>
+                    <div class="trust-grid">
+                        <div class="trust-item">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <p>Гарантия<br>12 мес</p>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                            </div>
+                            <p>Расходное оборудование всегда в наличии на складе</p>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <p>Официальный дилер<br>СЗФО</p>
+                        </div>
+                        <div class="trust-item">
+                            <div class="trust-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            </div>
+                            <p>Обучаем<br>докторов</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== БЛОК "КАК ПРОИСХОДИТ ЗАКАЗ" ===== -->
+    <section class="section-order" id="order">
+        <div class="container">
+            <h2 class="section-title">Как происходит заказ продукции ERBE</h2>
+
+            <div class="order-steps" id="order-steps">
+                <button class="step-item active" data-step="0">Сейчас</button>
+                <button class="step-item" data-step="1">В течение 15 минут</button>
+                <button class="step-item" data-step="2">В течение 2 часов</button>
+                <button class="step-item" data-step="3">В течение 3 месяцев</button>
+                <button class="step-item" data-step="4">После апробации</button>
+            </div>
+
+            <!-- Шаг 0 -->
+            <div class="order-content active" data-step="0">
+                <div class="order-illustration">
+                    <img src="https://via.placeholder.com/200/FFFFFF/4AA3C2?text=Сейчас" alt="Сейчас">
+                </div>
+                <div class="order-text">
+                    <h3>Сейчас</h3>
+                    <p>Вы ознакамливаетесь с продукцией на сайте, выделяете интересующие вас товары, отправляете запрос на почту или звоните по телефону.</p>
+                    <div class="order-nav">
+                        <button disabled aria-label="Назад">←</button>
+                        <button onclick="goToStep(1)" aria-label="Вперёд">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 1 -->
+            <div class="order-content" data-step="1">
+                <div class="order-illustration">
+                    <img src="https://via.placeholder.com/200/FFFFFF/4AA3C2?text=15+минут" alt="15 минут">
+                </div>
+                <div class="order-text">
+                    <h3>В течение 15 минут</h3>
+                    <p>С вами связывается менеджер компании для уточнения необходимого перечня оборудования и согласования запроса.</p>
+                    <div class="order-nav">
+                        <button onclick="goToStep(0)" aria-label="Назад">←</button>
+                        <button onclick="goToStep(2)" aria-label="Вперёд">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 2 -->
+            <div class="order-content" data-step="2">
+                <div class="order-illustration">
+                    <img src="https://via.placeholder.com/200/FFFFFF/4AA3C2?text=2+часа" alt="2 часа">
+                </div>
+                <div class="order-text">
+                    <h3>В течение 2 часов</h3>
+                    <p>Мы подготавливаем коммерческое предложение с указанием условий поставки оборудования, сроками и стоимостью. Согласовываем апробацию при необходимости.</p>
+                    <div class="order-nav">
+                        <button onclick="goToStep(1)" aria-label="Назад">←</button>
+                        <button onclick="goToStep(3)" aria-label="Вперёд">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 3 -->
+            <div class="order-content" data-step="3">
+                <div class="order-illustration">
+                    <img src="https://via.placeholder.com/200/FFFFFF/4AA3C2?text=3+месяца" alt="3 месяца">
+                </div>
+                <div class="order-text">
+                    <h3>В течение 3 месяцев</h3>
+                    <p>Мы предлагаем вам свое оборудование на апробацию, устанавливаем его, а также производим обучение ваших специалистов работе на оборудовании, при необходимости.</p>
+                    <div class="order-nav">
+                        <button onclick="goToStep(2)" aria-label="Назад">←</button>
+                        <button onclick="goToStep(4)" aria-label="Вперёд">→</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Шаг 4 -->
+            <div class="order-content" data-step="4">
+                <div class="order-illustration">
+                    <img src="https://via.placeholder.com/200/FFFFFF/4AA3C2?text=После+апробации" alt="После апробации">
+                </div>
+                <div class="order-text">
+                    <h3>После апробации</h3>
+                    <p>Заключаем договор на поставку оборудования. Поставляем оборудование, производим установку и последующее техническое обслуживание. Предоставляем гарантию до 12 месяцев.</p>
+                    <div class="order-nav">
+                        <button onclick="goToStep(3)" aria-label="Назад">←</button>
+                        <button disabled aria-label="Вперёд">→</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- 8. FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Продукция</h4>
+                    <ul>
+                        <li><a href="electrosurgery.html">Электрохирургия</a></li>
+                        <li><a href="plazmasurgery.html">Плазменная хирургия</a></li>
+                        <li><a href="kryosurgery.html">Криохирургия</a></li>
+                        <li><a href="hidrosurgery.html">Гидрохирургия</a></li>
+                        <li><a href="dymoudaleniye.html">Дымоудаление</a></li>
+                        <li><a href="iggiration.html">Ирригация</a></li>
+                        <li><a href="aspiration.html">Аспирация</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Применение</h4>
+                    <ul>
+                        <li><a href="obschaya_surgery.html">Общая хирургия</a></li>
+                        <li><a href="gastroenterology.html">Гастроэнтерология</a></li>
+                        <li><a href="ginekology.html">Гинекология</a></li>
+                        <li><a href="urology.html">Урология</a></li>
+                        <li><a href="pulmonology.html">Пульмонология</a></li>
+                        <li><a href="otorinoringology.html">Оториноларингология</a></li>
+                        <li><a href="plastic_surgery.html">Пластическая хирургия</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="aprobacia.html">Апробация оборудования</a></li>
+                        <li><a href="servisnoye_obslujivaniye.html">Сервисное обслуживание</a></li>
+                        <li><a href="obucheniye_doctorov.html">Обучение докторов</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col contact-info">
+                    <h4>Контакты</h4>
+                    <p>194017, Санкт-Петербург, ул. Дрезденская, д.16а, лит. А</p>
+                    <p><a href="tel:+79618101140">+7 961 810-11-40</a><br>
+                       <a href="tel:+79211841111">+7 921 184-11-11</a></p>
+                    <p><a href="mailto:takomedical@gmail.com">takomedical@gmail.com</a></p>
+                    <p>пн-пт с 9:00 до 18:00</p>
+                    <p style="margin-top: 20px; font-size: 12px; opacity: 0.7;">ИНН 7802828352; КПП 780201001; ОГРН 1137847224074<br>
+                    Информация на сайте не является публичной офертой, определяемой положениями ч. 2 ст. 437 Гражданского кодекса РФ.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>ООО «ТАКО МЕДИКАЛ» © 2016-2026 ТакоМедикал. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== СКРИПТ ДЛЯ БЛОКА ЗАКАЗА ===== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stepButtons = document.querySelectorAll('.step-item');
+            const stepContents = document.querySelectorAll('.order-content');
+
+            stepButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const step = btn.dataset.step;
+                    activateStep(step);
+                });
+            });
+
+            window.goToStep = function(step) {
+                activateStep(step);
+            };
+
+            function activateStep(step) {
+                stepButtons.forEach(b => b.classList.remove('active'));
+                document.querySelector(`.step-item[data-step="${step}"]`).classList.add('active');
+
+                stepContents.forEach(c => c.classList.remove('active'));
+                document.querySelector(`.order-content[data-step="${step}"]`).classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
