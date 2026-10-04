@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tako Medical - Официальный дилер ERBE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- ФИРМЕННЫЕ ЦВЕТА (ВЗЯТЫ СО СКРИНШОТА) --- */
+        :root {
+            --brand-blue: #4AA3C2;       /* Тот самый голубой с логотипа */
+            --brand-blue-hover: #3B8AA6; /* Чуть темнее для ховера */
+            --brand-dark: #1A2B3C;       /* Темно-синий для текста (не черный) */
+            --text-main: #333333;
+            --text-muted: #6B7280;
+            --bg-light: #F4F8FA;         /* Очень светлый голубоватый фон */
+            --white: #FFFFFF;
+            --border-color: #E2E8F0;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            color: var(--text-main);
+            background-color: var(--white);
+            line-height: 1.5;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* --- 1. МЕНЮ (STICKY NAV) --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo img {
+            height: 40px;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            height: 100%;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--brand-dark);
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--brand-blue);
+            transition: var(--transition);
+        }
+
+        .nav-item:hover .nav-link { color: var(--brand-blue); }
+        .nav-item:hover .nav-link::after { width: 100%; }
+
+        /* Выпадающие меню */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--white);
+            min-width: 240px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            padding: 12px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--border-color);
+            border-top: 3px solid var(--brand-blue);
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 10px 24px;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+        .dropdown li a:hover {
+            background-color: var(--bg-light);
+            color: var(--brand-blue);
+            padding-left: 28px;
+        }
+
+        .nav-contacts {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--brand-dark);
+        }
+        .nav-contacts span { display: flex; align-items: center; gap: 6px; }
+        .nav-contacts span::before { content: '•'; color: var(--brand-blue); font-size: 18px; }
+
+        /* --- 2. HERO СЕКЦИЯ --- */
+        .hero {
+            display: flex;
+            min-height: 90vh;
+            padding-top: 80px;
+            background-color: var(--bg-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-left {
+            flex: 1;
+            padding: 100px 40px 80px 5%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            max-width: 480px;
+            line-height: 1.4;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 800;
+            line-height: 1.05;
+            color: var(--brand-dark);
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero-title span {
+            color: var(--brand-blue);
+            display: block;
+            font-size: 48px;
+            margin-top: 8px;
+        }
+
+        /* Слайдер товаров (заглушка) */
+        .product-slider {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 20px 0 40px;
+            scrollbar-width: none;
+        }
+        .product-slider::-webkit-scrollbar { display: none; }
+
+        .product-card {
+            min-width: 180px;
+            height: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--brand-dark);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            padding: 20px;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-blue);
+            box-shadow: 0 12px 30px rgba(74,163,194,0.15);
+        }
+        .product-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .hero-right {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+            position: relative;
+        }
+
+        .hero-right::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, var(--bg-light) 0%, rgba(244,248,250,0) 40%);
+        }
+
+        /* --- 3. СТРЕЛКА ПЕРЕХОДА --- */
+        .scroll-down {
+            text-align: center;
+            padding: 30px 0;
+            background-color: var(--bg-light);
+            position: relative;
+            z-index: 2;
+        }
+        .scroll-down a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            color: var(--brand-blue);
+            background: var(--white);
+            transition: var(--transition);
+        }
+        .scroll-down a:hover {
+            background: var(--brand-blue);
+            color: var(--white);
+            border-color: var(--brand-blue);
+            transform: translateY(5px);
+        }
+
+        /* --- 4. НАПРАВЛЕНИЯ (ЦЕНТРИРОВАННЫЙ СЛАЙДЕР) --- */
+        .section-directions {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--brand-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .slider-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .slider-arrow {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+            color: var(--brand-blue);
+        }
+
+        .slider-arrow:hover {
+            background: var(--brand-blue);
+            color: var(--white);
+            border-color: var(--brand-blue);
+        }
+
+        .directions-slider {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            padding: 20px 10px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+            scroll-behavior: smooth;
+        }
+        .directions-slider::-webkit-scrollbar { display: none; }
+
+        .direction-card {
+            min-width: 260px;
+            padding: 40px 24px;
+            background: var(--bg-light);
+            border-radius: 16px;
+            scroll-snap-align: center;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .direction-card:hover {
+            background: var(--white);
+            border-color: var(--brand-blue);
+            box-shadow: 0 16px 40px rgba(74,163,194,0.12);
+            transform: translateY(-5px);
+        }
+
+        .direction-card .icon-box {
+            width: 64px;
+            height: 64px;
+            background: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: var(--transition);
+        }
+        .direction-card:hover .icon-box {
+            background: var(--brand-blue);
+            color: var(--white);
+        }
+        .direction-card .icon-box svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--brand-blue);
+            transition: var(--transition);
+        }
+        .direction-card:hover .icon-box svg {
+            stroke: var(--white);
+        }
+
+        .direction-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--brand-dark);
+        }
+
+        /* --- 5. СФЕРЫ ПРИМЕНЕНИЯ --- */
+        .section-spheres {
+            padding: 100px 0;
+            background: var(--brand-blue);
+            color: var(--white);
+            overflow: hidden;
+        }
+
+        .section-spheres .section-title {
+            color: var(--white);
+        }
+
+        .spheres-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: none;
+        }
+        .spheres-scroll::-webkit-scrollbar { display: none; }
+
+        .sphere-item {
+            min-width: 220px;
+            padding: 24px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: var(--transition);
+            text-align: center;
+        }
+        .sphere-item:hover {
+            background: var(--white);
+            color: var(--brand-blue);
+            transform: translateY(-3px);
+        }
+        .sphere-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* --- 6. ИНФОГРАФИКА (ПРЕИМУЩЕСТВА) --- */
+        .section-benefits {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .benefit-item {
+            padding: 40px 32px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .benefit-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            border-color: var(--brand-blue);
+        }
+
+        .benefit-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--bg-light);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: var(--brand-blue);
+            transition: var(--transition);
+        }
+        .benefit-item:hover .benefit-icon {
+            background: var(--brand-blue);
+            color: var(--white);
+        }
+        .benefit-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .benefit-item h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-bottom: 12px;
+        }
+        .benefit-item p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* --- 7. О КОМПАНИИ --- */
+        .section-about {
+            padding: 120px 0;
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--brand-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .about-text strong {
+            color: var(--brand-dark);
+            font-weight: 600;
+        }
+
+        .about-image {
+            position: relative;
+        }
+        .about-image img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--brand-blue);
+            border-radius: 16px;
+            z-index: 1;
+        }
+
+        /* --- 8. FOOTER --- */
+        footer {
+            background: var(--brand-dark);
+            color: #A0AEC0;
+            padding: 80px 0 40px;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            color: var(--white);
+            margin-bottom: 24px;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a:hover { color: var(--brand-blue); padding-left: 4px; }
+
+        .footer-col.contact-info p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+        .footer-col.contact-info a {
+            color: var(--white);
+            font-weight: 600;
+        }
+        .footer-col.contact-info a:hover { color: var(--brand-blue); }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+        }
+
+        /* --- АДАПТИВНОСТЬ --- */
+        @media (max-width: 1024px) {
+            .hero { flex-direction: column; }
+            .hero-left { padding: 120px 24px 60px; }
+            .hero-right { height: 400px; }
+            .hero-title { font-size: 48px; }
+            .hero-title span { font-size: 36px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-image::before { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .benefits-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .nav-contacts { font-size: 11px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+            .section-title { font-size: 26px; }
+            .slider-arrow { display: none; } /* На мобильных скролл пальцем */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. МЕНЮ -->
+    <header>
+        <div class="container nav-container">
+            <a href="glavnaya.html" class="logo">
+                <!-- Вставьте сюда ваш логотип -->
+                <img src="logo_tako.png" alt="Tako Medical">
+            </a>
+            
+            <nav class="nav-menu">
+                <div class="nav-item">
+                    <a href="productia.html" class="nav-link">Продукция</a>
+                    <ul class="dropdown">
+                        <li><a href="electrosurgery.html">Электрохирургия</a></li>
+                        <li><a href="plazmasurgery.html">Плазменная хирургия</a></li>
+                        <li><a href="kryosurgery.html">Криохирургия</a></li>
+                        <li><a href="hidrosurgery.html">Гидрохирургия</a></li>
+                        <li><a href="dymoudaleniye.html">Дымоудаление</a></li>
+                        <li><a href="iggiration.html">Ирригация</a></li>
+                        <li><a href="aspiration.html">Аспирация</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="primenenie.html" class="nav-link">Применение</a>
+                    <ul class="dropdown">
+                        <li><a href="obschaya_surgery.html">Общая хирургия</a></li>
+                        <li><a href="gastroenterology.html">Гастроэнтерология</a></li>
+                        <li><a href="ginekology.html">Гинекология</a></li>
+                        <li><a href="urology.html">Урология</a></li>
+                        <li><a href="pulmonology.html">Пульмонология</a></li>
+                        <li><a href="otorinoringology.html">Оториноларингология</a></li>
+                        <li><a href="plastic_surgery.html">Пластическая хирургия</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="uslugi.html" class="nav-link">Услуги</a>
+                    <ul class="dropdown">
+                        <li><a href="obucheniye_doctorov.html">Обучение докторов</a></li>
+                        <li><a href="servisnoye_obslujivaniye.html">Сервисное обслуживание</a></li>
+                        <li><a href="aprobacia.html">Апробация оборудования</a></li>
+                    </ul>
+                </div>
+                <div class="nav-item">
+                    <a href="contacts.html" class="nav-link">Контакты</a>
+                </div>
+            </nav>
+
+            <div class="nav-contacts">
+                <span>+7 961 810-11-40</span>
+                <span>+7 921 184-11-11</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 2. HERO СЕКЦИЯ -->
+    <section class="hero">
+        <div class="hero-left">
+            <p class="hero-subtitle">Поставка и сервисное обслуживание премиального оборудования и расходных материалов</p>
+            <h1 class="hero-title">ERBE <span>от официального дилера В СЗФО</span></h1>
+            
+            <!-- Слайдер товаров (заглушка) -->
+            <div class="product-slider">
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/80/4AA3C2/FFFFFF?text=PNG" alt="Товар">
+                    <span>Электрохирургия</span>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/80/4AA3C2/FFFFFF?text=PNG" alt="Товар">
+                    <span>Плазменная</span>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/80/4AA3C2/FFFFFF?text=PNG" alt="Товар">
+                    <span>Криохирургия</span>
+                </div>
+                <div class="product-card">
+                    <img src="https://via.placeholder.com/80/4AA3C2/FFFFFF?text=PNG" alt="Товар">
+                    <span>Гидрохирургия</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right"></div>
+    </section>
+
+    <!-- 3. СТРЕЛКА ПЕРЕХОДА -->
+    <div class="scroll-down">
+        <a href="#directions">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- 4. НАПРАВЛЕНИЯ (ЦЕНТРИРОВАННЫЙ СЛАЙДЕР СО СТРЕЛОЧКАМИ) -->
+    <section class="section-directions" id="directions">
+        <div class="container">
+            <h2 class="section-title">Мы предлагаем продукцию ERBE для следующих направлений</h2>
+            
+            <div class="slider-wrapper">
+                <!-- Левая стрелка -->
+                <button class="slider-arrow" id="arrow-left">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+
+                <!-- Сам слайдер -->
+                <div class="directions-slider" id="directions-slider">
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+                        </div>
+                        <h3>Электрохирургия</h3>
+                    </div>
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+                        </div>
+                        <h3>Плазменная хирургия</h3>
+                    </div>
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/></svg>
+                        </div>
+                        <h3>Криохирургия</h3>
+                    </div>
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <h3>Гидрохирургия</h3>
+                    </div>
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+                        </div>
+                        <h3>Дымоудаление</h3>
+                    </div>
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                        </div>
+                        <h3>Ирригация</h3>
+                    </div>
+                    <div class="direction-card">
+                        <div class="icon-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <h3>Аспирация</h3>
+                    </div>
+                </div>
+
+                <!-- Правая стрелка -->
+                <button class="slider-arrow" id="arrow-right">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. СФЕРЫ ПРИМЕНЕНИЯ -->
+    <section class="section-spheres">
+        <div class="container">
+            <h2 class="section-title">Эти решения используются в следующих сферах</h2>
+            <div class="spheres-scroll">
+                <div class="sphere-item"><h4>Общая хирургия</h4></div>
+                <div class="sphere-item"><h4>Гастроэнтерология</h4></div>
+                <div class="sphere-item"><h4>Гинекология</h4></div>
+                <div class="sphere-item"><h4>Урология</h4></div>
+                <div class="sphere-item"><h4>Пульмонология</h4></div>
+                <div class="sphere-item"><h4>Оториноларингология</h4></div>
+                <div class="sphere-item"><h4>Пластическая хирургия</h4></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ИНФОГРАФИКА (ПРЕИМУЩЕСТВА) -->
+    <section class="section-benefits">
+        <div class="container">
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <h3>Расходные материалы</h3>
+                    <p>В наличии на складе в Санкт-Петербурге</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3>Официальный дилер</h3>
+                    <p>В Северо-Западном Федеральном Округе</p>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3>Обучение специалистов</h3>
+                    <p>Проводим тренинги для врачей</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. О КОМПАНИИ -->
+    <section class="section-about">
+        <div class="container about-grid">
+            <div class="about-text">
+                <h2>О компании ООО «ТАКО МЕДИКАЛ»</h2>
+                <p>ООО «ТАКО МЕДИКАЛ» — это российская компания, специализирующаяся на поставке медицинского оборудования и расходных материалов для учреждений здравоохранения. Основана 11 июня 2013 года и зарегистрирована в Санкт-Петербурге.</p>
+                <p>Мы предлагаем высококачественные решения для эндоскопии, хирургии и других медицинских направлений, обеспечивая надёжность и инновационность в каждом продукте.</p>
+                <p><strong>Основные сведения:</strong><br>
+                Полное наименование: Общество с ограниченной ответственностью «ТАКО МЕДИКАЛ».<br>
+                Юридический адрес: 194017, г. Санкт-Петербург, ул. Дрезденская, д. 16А, литер А</p>
+                <p><strong>Направления деятельности:</strong> Оптовая торговля медицинскими изделиями и оборудованием, включая эндоскопические инструменты (FIAPC-зонды, APC-аппликаторы), а также аксессуары для аргоноплазменной коагуляции (APC).</p>
+                <p><strong>Преимущества сотрудничества:</strong><br>
+                • <strong>Качество:</strong> поставка сертифицированного оборудования.<br>
+                • <strong>Надёжность:</strong> более 10 лет успешной работы.<br>
+                • <strong>Профессионализм:</strong> команда экспертов.</p>
+                <p><strong>Миссия:</strong> Содействовать развитию здравоохранения в России через поставку передовых медицинских технологий.</p>
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop" alt="Офис Tako Medical">
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Продукция</h4>
+                    <ul>
+                        <li><a href="electrosurgery.html">Электрохирургия</a></li>
+                        <li><a href="plazmasurgery.html">Плазменная хирургия</a></li>
+                        <li><a href="kryosurgery.html">Криохирургия</a></li>
+                        <li><a href="hidrosurgery.html">Гидрохирургия</a></li>
+                        <li><a href="dymoudaleniye.html">Дымоудаление</a></li>
+                        <li><a href="iggiration.html">Ирригация</a></li>
+                        <li><a href="aspiration.html">Аспирация</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Применение</h4>
+                    <ul>
+                        <li><a href="obschaya_surgery.html">Общая хирургия</a></li>
+                        <li><a href="gastroenterology.html">Гастроэнтерология</a></li>
+                        <li><a href="ginekology.html">Гинекология</a></li>
+                        <li><a href="urology.html">Урология</a></li>
+                        <li><a href="pulmonology.html">Пульмонология</a></li>
+                        <li><a href="otorinoringology.html">Оториноларингология</a></li>
+                        <li><a href="plastic_surgery.html">Пластическая хирургия</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="aprobacia.html">Апробация оборудования</a></li>
+                        <li><a href="servisnoye_obslujivaniye.html">Сервисное обслуживание</a></li>
+                        <li><a href="obucheniye_doctorov.html">Обучение докторов</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col contact-info">
+                    <h4>Контакты</h4>
+                    <p>194017, Санкт-Петербург, ул. Дрезденская, д.16а, лит. А</p>
+                    <p><a href="tel:+79618101140">+7 961 810-11-40</a><br>
+                       <a href="tel:+79211841111">+7 921 184-11-11</a></p>
+                    <p><a href="mailto:takomedical@gmail.com">takomedical@gmail.com</a></p>
+                    <p>пн-пт с 9:00 до 18:00</p>
+                    <p style="margin-top: 20px; font-size: 12px; opacity: 0.7;">ИНН 7802828352; КПП 780201001; ОГРН 1137847224074<br>
+                    Информация на сайте не является публичной офертой, определяемой положениями ч. 2 ст. 437 Гражданского кодекса РФ.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>ООО «ТАКО МЕДИКАЛ» © 2016-2026 ТакоМедикал. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- СКРИПТ ДЛЯ СЛАЙДЕРА -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.getElementById('directions-slider');
+            const leftArrow = document.getElementById('arrow-left');
+            const rightArrow = document.getElementById('arrow-right');
+
+            if (slider && leftArrow && rightArrow) {
+                leftArrow.addEventListener('click', () => {
+                    slider.scrollBy({ left: -300, behavior: 'smooth' });
+                });
+                rightArrow.addEventListener('click', () => {
+                    slider.scrollBy({ left: 300, behavior: 'smooth' });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
